@@ -81,25 +81,51 @@
 // сами значения предикатов случайные, проверяем это утверждение 100 раз, 
 // с помощью модуля time выводим на экран , сколько времени отработала программа. 
 // В конце вывести результат проверки истинности этого утверждения.
+// DateTime dt = new DateTime();
+// DateTime time_start = DateTime.Now;
+// bool res = true;
+// Random rnd = new Random();
+// int count = rnd.Next(5, 26);
+
+// for (int j=1; j <= 100; j++){
+// bool p = Convert.ToBoolean(rnd.Next(2));
+// bool left = p;
+// bool right = !p;
+// for (int i = 1; i < count; i++)
+// {   
+//     p = Convert.ToBoolean(rnd.Next(2));
+//     left = left | p;
+//     right = right & !p;
+// }
+// res = res & (!left == right);
+// }
+// Console.WriteLine("Результат:" + res);
+// DateTime time_end = DateTime.Now;
+// Console.WriteLine("Время работы программы составляет: " + time_end.Subtract(time_start));
+// ********************************************************
+// Вариант с выводом проверок
 DateTime dt = new DateTime();
 DateTime time_start = DateTime.Now;
 bool res = true;
 Random rnd = new Random();
 int count = rnd.Next(5, 26);
-
+bool[] mas = new bool[count];
 for (int j=1; j <= 100; j++){
-bool p = Convert.ToBoolean(rnd.Next(2));
-bool left = p;
-bool right = !p;
-for (int i = 1; i < count; i++)
-{   
-    p = Convert.ToBoolean(rnd.Next(2));
-    left = left | p;
-    right = right & !p;
-}
-res = res & (!left == right);
-}
-Console.WriteLine("Результат:" + res);
+    bool p = Convert.ToBoolean(rnd.Next(2));
+    bool left = p;
+    bool right = !p;
+    mas[0] = p;
+    for (int i = 1; i < count; i++)
+    {   
+        p = Convert.ToBoolean(rnd.Next(2));
+        mas[i] = p;
+        left = left | p;
+        right = right & !p;
+    }
+    Console.WriteLine();
+    Console.WriteLine("¬(" + string.Join(" V ", mas)  + ") ==  ¬" + string.Join(" &  ¬", mas) + ")   " + "результат: " + (!left == right));
+    res = res & (!left == right);
+    }
+Console.WriteLine("Итоговый результат 100 проверок:" + res);
 DateTime time_end = DateTime.Now;
 Console.WriteLine("Время работы программы составляет: " + time_end.Subtract(time_start));
-// ********************************************************
